@@ -9,17 +9,19 @@ import           Database
 import           Network.Wai
 import           Network.Wai.Handler.Warp
 import           Servant
-
 import           Network.Wai.Middleware.Cors
+
+
 import           Types
 
 
 type API = "tests" :> Get '[JSON] [Test]
-      :<|> "tests" :> ReqBody '[JSON] Test :> Post '[JSON] Test
+      :<|> "tests" :> ReqBody '[JSON] TestInput :> Post '[JSON] TestInput
 
 server :: Server API
 server = pure testTests
-    :<|> pure
+    :<|> \ti -> liftIO (addTest ti) >> pure ti
+
 
 app :: Application
 app = middleware $ serve (Proxy :: Proxy API) server
