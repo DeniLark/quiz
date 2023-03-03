@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test, Quiz</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+  <div id="block-tests" class="block-tests">
+    <div id="tests" class="tests">
+      <!-- <button class="test">Lorem ipsum dolor sit</button>
+      <button class="test">Assumenda error esse repellendus</button>
+      <button class="test">Dolor reprehenderit provident</button>
+      <button class="test">Lorem ipsum dolor sit</button>
+      <button class="test">Assumenda error esse repellendus</button>
+      <button class="test">Dolor reprehenderit provident</button>
+      <button class="test">Lorem ipsum dolor sit</button>
+      <button class="test">Assumenda error esse repellendus</button>
+      <button class="test">Dolor reprehenderit provident</button>
+      <button class="test">Lorem ipsum dolor sit</button>
+      <button class="test">Assumenda error esse repellendus</button>
+      <button class="test">Dolor reprehenderit provident</button>
+      <button class="test">Lorem ipsum dolor sit</button>
+      <button class="test">Assumenda error esse repellendus</button>
+      <button class="test">Dolor reprehenderit provident</button> -->
+
+    </div>
+
+    <button class="test add-test">Add test</button>
+  </div>
+
+  <!-- <button id="btn-submit">Ok</button> -->
+
+  <!-- Пройти тест -->
+  <div class="modal-container modal-test">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Заголовок теста</h3>
+        <button class="modal-btn_close">&times;</button>
+      </div>
+      <div class="modal-main">
+        <div class="test-question">2 + 2</div>
+        <div class="test-answers">
+          <button class="btn-answer">3</button>
+          <button class="btn-answer">4</button>
+          <button class="btn-answer">5</button>
+          <button class="btn-answer">6</button>
+        </div>
+      </div>
+      <div class="modal-footer modal-footer_in-test">
+        <div class="block-info">
+          <span class="number-current">1</span>
+          /
+          <span class="number-total">20</span>
+          <span class="number-error-container">
+            (<span class="number-error">3</span>)
+          </span>
+        </div>
+        <button class="modal-btn btn-next-question">Дальше</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Добавить тест -->
+  <div class="modal-container modal-add-test">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Создание теста</h3>
+        <button class="modal-btn_close">&times;</button>
+      </div>
+      <div class="modal-main">
+        <!-- <form action="" method="post"> -->
+        <input type="text" class="input-w100" id="test-title" placeholder="Заголовок теста">
+        <div class="question">
+          <h5 class="question-title">Вопрос 1</h5>
+          <input type="text" class="question-text" class="input-w100" value="2 + 2">
+          <div class="answers">
+            <div class="answer">
+              <input type="radio" name="a1" id="">
+              <input type="text" value="3">
+            </div>
+            <div class="answer">
+              <input type="radio" name="a1" checked id="">
+              <input type="text" value="4">
+            </div>
+            <div class="answer">
+              <input type="radio" name="a1" id="">
+              <input type="text" value="5">
+            </div>
+            <div class="answer">
+              <input type="radio" name="a1" id="">
+              <input type="text" value="6">
+            </div>
+          </div>
+        </div>
+        <div class="new-questions"></div>
+        <button class="modal-btn" id="btn-add-question">Добавить ответ</button>
+        <!-- </form> -->
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn" id="submit-test">Отправить тест</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+
+  <script src="./requests.js"></script>
+</body>
+
+</html>

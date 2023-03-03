@@ -1,0 +1,169 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+
+.block-tests {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.tests {
+  height: 100%;
+  background-color: burlywood;
+  text-align: center;
+  padding: 20px;
+  overflow: auto;
+}
+
+.test {
+  margin: 10px auto;
+  width: 70%;
+  background-color: white;
+  padding: 20px;
+  display: block;
+}
+
+.test:hover,
+.test:focus,
+.btn-answer:hover,
+.btn-answer:focus {
+  background-color: aquamarine;
+  cursor: pointer;
+
+}
+
+
+.modal-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+
+  background-color: rgba(0, 0, 0, .7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0;
+  visibility: hidden;
+}
+
+.modal-show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  width: 500px;
+  height: 90%;
+  background-color: white;
+  padding: 0 15px 10px 15px;
+
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 20px 10px 0;
+}
+
+.modal-main {
+  overflow: auto;
+  height: 90%;
+  padding-bottom: 10px;
+}
+
+.modal-btn {
+  padding: 5px 20px;
+  cursor: pointer;
+}
+
+.modal-btn_close {
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  cursor: pointer;
+}
+
+.input-w100 {
+  width: 100%;
+}
+
+.question-title {
+  margin: 10px 0 4px 0;
+  padding-top: 5px;
+  border-top: 1px solid black;
+}
+
+.question-text {
+  width: 100%;
+  margin-bottom: 7px;
+}
+
+.answer {
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.answer input[type=text] {
+  width: 100%;
+  margin-left: 5px;
+}
+
+.modal-footer {
+  text-align: right;
+}
+
+.modal-footer_in-test {
+  display: flex;
+  justify-content: space-between;
+}
+
+.number-error-container {
+  color: rgb(111, 14, 14);
+}
+
+.modal-test .modal-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.test-question {
+  height: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.test-answers {
+  height: 30%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.btn-answer {
+  background-color: white;
+  width: 45%;
+  margin: 5px;
+}
