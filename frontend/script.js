@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <input type="text">
         </div>
         <div class="answer">
-          <input type="radio" name="a${nextQuestionNumber}" checked id="">
+          <input type="radio" name="a${nextQuestionNumber}" id="">
           <input type="text">
         </div>
         <div class="answer">
