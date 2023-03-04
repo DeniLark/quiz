@@ -14,13 +14,13 @@ import           Network.Wai.Middleware.Cors
 
 import           Types
 
-
 type API = "tests" :> Get '[JSON] [Test]
-      :<|> "tests" :> ReqBody '[JSON] TestInput :> Post '[JSON] TestInput
+      :<|> "tests" :> ReqBody '[JSON] TestInput :> Post '[JSON] TestInput 
+
 
 server :: Server API
-server = pure testTests
-    :<|> \ti -> liftIO (addTest ti) >> pure ti
+server = liftIO getTests 
+    :<|> \ti ->  liftIO (addTest ti) >> pure ti
 
 
 app :: Application

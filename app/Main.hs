@@ -6,4 +6,4 @@ module Main
 import           Api
 
 main :: IO ()
-main = startApp
+main = putStrLn "server started...\nhttp://localhost:8080" >> startApp

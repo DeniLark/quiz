@@ -13,17 +13,26 @@ fetch("http://localhost:8080/tests")
   })
 
 // Отправить тест
-// document.getElementById("btn-submit").addEventListener("click", () => {
-//   fetch('http://localhost:8080/tests', {
-//     method: 'POST',
-//     body: JSON.stringify({
-//       testId: 42,
-//       testTitle: "New Test"
-//     }),
-//     headers: {
-//       'Content-type': 'application/json; charset=UTF-8',
-//     },
-//   })
-//     .then((response) => response.json())
-//     .then((json) => console.log(json));
-// })
+function submitTest(test) {
+  fetch('http://localhost:8080/tests', {
+    method: 'POST',
+    body: JSON.stringify(test),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  })
+    .then((response) => response.json())
+    .then((json) => console.log(json));
+}
+
+// function testFunc() {
+
+//   const obj = {
+//     title: 'ыфввыф',
+//     questions: [
+//       { text: "2 + 2", answers }
+//     ]
+
+//   }
+
+// }

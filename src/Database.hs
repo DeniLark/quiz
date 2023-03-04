@@ -2,7 +2,6 @@
 
 module Database where
 
-import           Data.Bool
 import qualified Data.Text                     as T
 import           Database.SQLite.Simple
 
@@ -44,7 +43,5 @@ addTest' titleT = withConnection dbName $ \conn ->
 getTests :: IO [Test]
 getTests = withConnection dbName $ \conn -> query_ conn "SELECT * FROM tests;"
 
-testTests :: [Test]
-testTests = [Test 1 "Test 1", Test 2 "Test 2", Test 3 "Test 3"]
 
 

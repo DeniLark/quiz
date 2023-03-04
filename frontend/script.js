@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalAddTestClose = modalAddTest.querySelector(".modal-btn_close")
   const btnAddQuestion = modalAddTest.querySelector("#btn-add-question")
   const blockNewQuestions = modalAddTest.querySelector(".new-questions")
-  const submitTest = modalAddTest.querySelector("#submit-test")
+  const btnSubmitTest = modalAddTest.querySelector("#submit-test")
 
 
   // Выбрать тест
@@ -20,10 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
-
-
   // Отправить тест
-  submitTest.addEventListener("click", () => {
+  btnSubmitTest.addEventListener("click", () => {
     const testTitle = modalAddTest.querySelector("#test-title").value
     const questionsNodes = modalAddTest.querySelectorAll(".question")
 
@@ -32,11 +30,13 @@ document.addEventListener("DOMContentLoaded", () => {
       questions: []
     }
 
+
+
     questionsNodes.forEach(q => {
       const questionText = q.querySelector(".question-text").value
 
       let questionObj = {
-        text: questionText,
+        textQuestion: questionText,
         answers: []
       }
 
@@ -46,7 +46,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const as = answers.forEach(a => {
           const isCorrectA = a.querySelector("[type=radio]").checked
           const textA = a.querySelector("[type=text]").value
-          const answerObj = { isCorrectA, textA }
+          const answerObj = {
+            isCorrect: isCorrectA,
+            textAnswer: textA
+          }
 
           questionObj.answers.push(answerObj)
         })
@@ -55,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
       testObj.questions.push(questionObj)
     })
     // ! готовый testObj для передачи бэку 
-    console.log(testObj)
+    submitTest(testObj)
   })
 
   const nextQuestionNumbertDefault = 2
@@ -109,6 +112,5 @@ document.addEventListener("DOMContentLoaded", () => {
   modalAddTestClose.addEventListener("click", () => {
     modalAddTest.classList.remove("modal-show")
   })
-
-
 })
+
