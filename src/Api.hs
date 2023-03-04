@@ -13,12 +13,13 @@ import           Network.Wai.Middleware.Cors
 
 import           Types.Types
 import qualified Types.TypesApiInput           as TI
+import qualified Types.TypesApiOutput          as TO
 import           Database.Get
 import           Database.Add
 
 type API = "tests" :> Get '[JSON] [Test]
       :<|> "tests" :> ReqBody '[JSON] TI.Test :> Post '[JSON] TI.Test 
-      :<|> "tests" :> Capture "test_id" Integer :> Get '[JSON] TI.Test
+      :<|> "tests" :> Capture "test_id" Integer :> Get '[JSON] TO.Test
 
 
 server :: Server API
