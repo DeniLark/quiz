@@ -5,22 +5,26 @@
 module Api where
 
 import           Control.Monad.IO.Class
-import           Database
 import           Network.Wai
 import           Network.Wai.Handler.Warp
 import           Servant
 import           Network.Wai.Middleware.Cors
 
 
-import           Types
+import           Types.Types
+import qualified Types.TypesApiInput           as TI
+import           Database.Get
+import           Database.Add
 
 type API = "tests" :> Get '[JSON] [Test]
-      :<|> "tests" :> ReqBody '[JSON] TestInput :> Post '[JSON] TestInput 
+      :<|> "tests" :> ReqBody '[JSON] TI.Test :> Post '[JSON] TI.Test 
+      :<|> "tests" :> Capture "test_id" Integer :> Get '[JSON] TI.Test
 
 
 server :: Server API
-server = liftIO getTests 
-    :<|> \ti ->  liftIO (addTest ti) >> pure ti
+server = liftIO getTests
+    :<|> (\ti ->  liftIO (addTest ti) >> pure ti)
+    :<|> (liftIO . getTest)
 
 
 app :: Application

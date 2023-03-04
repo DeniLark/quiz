@@ -1,26 +1,24 @@
 {-# LANGUAGE OverloadedStrings #-}
-
-module Database where
+module Database.Add where
 
 import qualified Data.Text                     as T
 import           Database.SQLite.Simple
 
 import           Const
-import           Types
+import qualified Types.TypesApiInput           as TI
 
-
-addTest :: TestInput -> IO ()
-addTest (TestInput titleTI questions) = do
+addTest :: TI.Test -> IO ()
+addTest (TI.Test titleTI questions) = do
   idTest <- addTest' titleTI
   mapM_ (addQuestion idTest) questions
 
-addQuestion :: Integer -> Question -> IO ()
-addQuestion idTest (Question titleQ answers) = do
+addQuestion :: Integer -> TI.Question -> IO ()
+addQuestion idTest (TI.Question titleQ answers) = do
   idQuestion <- addQuestion' idTest titleQ
   mapM_ (addAnswer idQuestion) answers
 
-addAnswer :: Integer -> Answer -> IO ()
-addAnswer idQuestion (Answer textA isC) = withConnection dbName $ \conn ->
+addAnswer :: Integer -> TI.Answer -> IO ()
+addAnswer idQuestion (TI.Answer textA isC) = withConnection dbName $ \conn ->
   execute
     conn
     "INSERT INTO answers(question_id, textAnswer, isCorrect) VALUES (?, ?, ?)"
@@ -39,9 +37,3 @@ addTest' titleT = withConnection dbName $ \conn ->
   execute conn "INSERT INTO tests(title) VALUES (?)" (Only titleT)
     >>  toInteger
     <$> lastInsertRowId conn
-
-getTests :: IO [Test]
-getTests = withConnection dbName $ \conn -> query_ conn "SELECT * FROM tests;"
-
-
-

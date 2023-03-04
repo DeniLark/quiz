@@ -17,6 +17,7 @@ CREATE TABLE questions (
 
 CREATE TABLE answers (
   question_id INTEGER,
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
   textAnswer TEXT,
   isCorrect NUMERIC
 );
