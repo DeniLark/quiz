@@ -20,12 +20,15 @@ import           Database.Add
 type API = "tests" :> Get '[JSON] [Test]
       :<|> "tests" :> ReqBody '[JSON] TI.Test :> Post '[JSON] TI.Test 
       :<|> "tests" :> Capture "test_id" Integer :> Get '[JSON] TO.Test
+      -- проверка ответа
+      :<|> "answer" :> Capture "answer_id" Integer :> Get '[JSON] Bool
 
 
 server :: Server API
 server = liftIO getTests
     :<|> (\ti ->  liftIO (addTest ti) >> pure ti)
     :<|> (liftIO . getTest)
+    :<|> (liftIO . checkCorrectAnswer)
 
 
 app :: Application

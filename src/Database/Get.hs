@@ -34,3 +34,13 @@ dbQuestionToQuestion (DBT.Question _ idQ textQ) = do
   pure $ TO.Question textQ $ map
     (TO.Answer <$> DBT.idAnswer <*> DBT.textAnswer <*> DBT.isCorrect)
     as
+
+------------
+checkCorrectAnswer :: Integer -> IO Bool
+checkCorrectAnswer = (DBT.isCorrect <$>) . getAnswerById
+
+getAnswerById :: Integer -> IO DBT.Answer
+getAnswerById idAnswer = withConnection dbName $ \conn ->
+  head <$> query conn "SELECT * FROM answers WHERE id = ?;" (Only idAnswer)
+
+
