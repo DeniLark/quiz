@@ -143,6 +143,10 @@ body {
   color: rgb(111, 14, 14);
 }
 
+.number-correct {
+  color: rgb(39, 108, 25);
+}
+
 .modal-test .modal-main {
   display: flex;
   flex-direction: column;
@@ -153,6 +157,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.test-finished {
+  text-align: center;
 }
 
 .test-answers {

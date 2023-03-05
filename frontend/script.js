@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (testId) {
       modalTest.classList.add("modal-show")
       modalTest.querySelector(".modal-title").innerHTML = testTitle
+      getTest(testId, modalTest)
     }
   })
 
@@ -29,8 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
       title: testTitle,
       questions: []
     }
-
-
 
     questionsNodes.forEach(q => {
       const questionText = q.querySelector(".question-text").value
