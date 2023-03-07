@@ -3,11 +3,32 @@ fetch("http://localhost:8080/tests")
   .then(tests => {
     const testsHtml = tests.reduce((acc, test) => {
       return (acc +=
-        `<button 
-          data-testid="${test.testId}"
-          data-testtitle="${test.testTitle}" 
-          class="test">${test.testId} ${test.testTitle}
-        </button>`)
+        // `<button 
+        //   data-testid="${test.testId}"
+        //   data-testtitle="${test.testTitle}" 
+        //   class="test">${test.testId} ${test.testTitle}
+        // </button>`)
+        `<div class="card test">
+            <div class="card-body">
+              <a 
+                href="#" class="link-primary test"
+                data-testid="${test.testId}"
+                data-testtitle="${test.testTitle}">
+                  ${test.testId} ${test.testTitle}
+              </a>
+              <div class="card-buttons">
+                <button class="btn btn-outline-primary card-small-btn" id="btn-card_edit">
+                  <span class="material-symbols-sharp card-small-btn_icon">
+                    edit
+                  </span></button>
+                <button class="btn btn-outline-primary card-small-btn" id="btn-card_delete">
+                  <span class="material-symbols-sharp card-small-btn_icon">
+                    delete
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>`)
     }, "")
     document.getElementById("tests").innerHTML = testsHtml
   })
@@ -64,11 +85,11 @@ function getTest(idTest, modalWindow) {
                   <div class="test-finished">
                     <h3>Поздравляем!</h3>
                     <h4>Вы прошли тест</h4>
-                    <p>Правильных ответов: 
-                    <span class="number-correct">${correctCount}</span>
+                    <p>Правильных ответов:
+                      <span class="number-correct">${correctCount}</span>
                     </p>
-                    <p>Неправильных ответов: 
-                    <span class="number-error-container">${errorsCount}</span>
+                    <p>Неправильных ответов:
+                      <span class="number-error-container">${errorsCount}</span>
                     </p>
                   </div>
                   `
@@ -93,8 +114,9 @@ function getTest(idTest, modalWindow) {
 
     let htmlButtons = questions[currentQuestion].answers.reduce((acc, a) => {
       return (acc += `<button data-answer="${a.answerId}" 
-                              class="btn-answer">${a.textAnswer}
-                      </button>`)
+                              class="btn-answer btn btn-outline-dark">
+                        ${a.textAnswer}
+                      </button> `)
     }, "")
     blockAnswers.innerHTML = htmlButtons
   }

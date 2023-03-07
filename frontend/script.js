@@ -75,26 +75,34 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault()
 
     const htmlQuestion =
-      `<h5 class="question-title">Вопрос ${nextQuestionNumber}</h5>
-      <input type="text" class="question-text" class="input-w100">
-      <div class="answers">
-        <div class="answer">
-          <input type="radio" name="a${nextQuestionNumber}" id="">
-          <input type="text">
+      `
+      <div class="question">
+        <h5 class="question-title">Вопрос ${nextQuestionNumber}</h5>
+        <input type="text" class="question-text form-control">
+        <div class="answers">
+            <div class="answer">
+            <input type="radio" class="form-check-input" name="a${nextQuestionNumber}">
+            <input type="text" class="form-control">
+            </div>
+
+            <div class="answer">
+            <input type="radio" class="form-check-input" name="a${nextQuestionNumber}">
+            <input type="text" class="form-control">
+            </div>
+
+            <div class="answer">
+            <input type="radio" class="form-check-input" name="a${nextQuestionNumber}">
+            <input type="text" class="form-control">
+            </div>
+
+            <div class="answer">
+            <input type="radio" class="form-check-input" name="a${nextQuestionNumber}">
+            <input type="text" class="form-control">
+            </div>
+          </div>
         </div>
-        <div class="answer">
-          <input type="radio" name="a${nextQuestionNumber}" id="">
-          <input type="text">
-        </div>
-        <div class="answer">
-          <input type="radio" name="a${nextQuestionNumber}" id="">
-          <input type="text">
-        </div>
-        <div class="answer">
-          <input type="radio" name="a${nextQuestionNumber}" id="">
-          <input type="text">
-        </div>
-      </div>`
+      </div>
+      `
 
     const elQuestion = document.createElement("div")
     elQuestion.classList.add("question")
