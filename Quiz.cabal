@@ -28,6 +28,7 @@ library
       Api
       Const
       Database.Add
+      Database.Del
       Database.Get
       Lib
       Types.Types

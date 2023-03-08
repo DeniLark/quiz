@@ -1,14 +1,13 @@
-fetch("http://localhost:8080/tests")
-  .then(res => res.json())
-  .then(tests => {
-    const testsHtml = tests.reduce((acc, test) => {
-      return (acc +=
-        // `<button 
-        //   data-testid="${test.testId}"
-        //   data-testtitle="${test.testTitle}" 
-        //   class="test">${test.testId} ${test.testTitle}
-        // </button>`)
-        `<div class="card test">
+getTests()
+
+// получить тесты
+function getTests() {
+  fetch("http://localhost:8080/tests")
+    .then(res => res.json())
+    .then(tests => {
+      const testsHtml = tests.reduce((acc, test) => {
+        return (acc +=
+          `<div class="card test">
             <div class="card-body">
               <a 
                 href="#" class="link-primary test"
@@ -17,21 +16,22 @@ fetch("http://localhost:8080/tests")
                   ${test.testId} ${test.testTitle}
               </a>
               <div class="card-buttons">
-                <button class="btn btn-outline-primary card-small-btn" id="btn-card_edit">
-                  <span class="material-symbols-sharp card-small-btn_icon">
+                <button data-edittestid="${test.testId}" class="btn btn-outline-primary card-small-btn btn-card_edit">
+                  <span data-edittestid="${test.testId}" class="material-symbols-sharp card-small-btn_icon">
                     edit
                   </span></button>
-                <button class="btn btn-outline-primary card-small-btn" id="btn-card_delete">
-                  <span class="material-symbols-sharp card-small-btn_icon">
+                <button data-deletetestid="${test.testId}" class="btn btn-outline-primary card-small-btn btn-card_edit">
+                  <span data-deletetestid="${test.testId}" class="material-symbols-sharp card-small-btn_icon">
                     delete
                   </span>
                 </button>
               </div>
             </div>
           </div>`)
-    }, "")
-    document.getElementById("tests").innerHTML = testsHtml
-  })
+      }, "")
+      document.getElementById("tests").innerHTML = testsHtml
+    })
+}
 
 // Отправить тест
 function submitTest(test) {
@@ -43,9 +43,28 @@ function submitTest(test) {
     },
   })
     .then((response) => response.json())
-    .then((json) => console.log(json));
+    .then((json) => {
+      getTests()
+      alert("Тест опубликован.")
+    });
 }
 
+// Удалить тест
+function deleteTest(idTest) {
+  fetch('http://localhost:8080/tests/' + idTest, {
+    method: "DELETE",
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      if (json) {
+        getTests()
+        alert("Тест удален")
+      }
+    });
+}
 
 // получить тест, и пройти его
 function getTest(idTest, modalWindow) {

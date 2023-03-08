@@ -12,12 +12,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Выбрать тест
   document.getElementById("tests").addEventListener("click", e => {
+    e.preventDefault()
+
     const testId = e.target.dataset.testid
     const testTitle = e.target.dataset.testtitle
+    const deleteTestId = e.target.dataset.deletetestid
+    const editTestId = e.target.dataset.edittestid
+
     if (testId) {
       modalTest.classList.add("modal-show")
       modalTest.querySelector(".modal-title").innerHTML = testTitle
       getTest(testId, modalTest)
+    } else if (deleteTestId) {
+      deleteTest(deleteTestId)
+    } else if (editTestId) {
+      console.log("Отредактировать тест")
     }
   })
 
@@ -56,8 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       testObj.questions.push(questionObj)
     })
-    // ! готовый testObj для передачи бэку 
+    // готовый testObj для передачи бэку 
     submitTest(testObj)
+    modalAddTest.classList.remove("modal-show")
   })
 
   const nextQuestionNumbertDefault = 2

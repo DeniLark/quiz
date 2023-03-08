@@ -43,4 +43,5 @@ getAnswerById :: Integer -> IO DBT.Answer
 getAnswerById idAnswer = withConnection dbName $ \conn ->
   head <$> query conn "SELECT * FROM answers WHERE id = ?;" (Only idAnswer)
 
+-------------
 
