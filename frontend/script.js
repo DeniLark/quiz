@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalTestClose = modalTest.querySelector(".modal-btn_close")
 
   const modalAddTestClose = modalAddTest.querySelector(".modal-btn_close")
-  const btnAddQuestion = modalAddTest.querySelector("#btn-add-question")
+  // const btnAddQuestion = modalAddTest.querySelector("#btn-add-question")
   const blockNewQuestions = modalAddTest.querySelector(".new-questions")
   const btnSubmitTest = modalAddTest.querySelector("#submit-test")
 
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (deleteTestId) {
       deleteTest(deleteTestId)
     } else if (editTestId) {
-      console.log("Отредактировать тест")
+      editorForTest(editTestId)
     }
   })
 
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     questionsNodes.forEach(q => {
       const questionText = q.querySelector(".question-text").value
-
+      // console.log(q)
       let questionObj = {
         textQuestion: questionText,
         answers: []
@@ -65,7 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       testObj.questions.push(questionObj)
     })
-    // готовый testObj для передачи бэку 
+
+    console.log(testObj)
+
     submitTest(testObj)
     modalAddTest.classList.remove("modal-show")
   })
@@ -80,7 +82,52 @@ document.addEventListener("DOMContentLoaded", () => {
     modalAddTest.classList.add("modal-show")
   })
 
+
+  const btnAddQuestion = modalAddTest.querySelector("#btn-add-question")
+
   // добавить вопрос
+  function addQuestionHandler(e) {
+    e.preventDefault()
+    console.log("addQuestion")
+
+    const htmlQuestion =
+      `
+        <h5 class="question-title">Вопрос ${nextQuestionNumber}</h5>
+        <input type="text" class="question-text form-control">
+        <div class="answers">
+          <div class="answer">
+            <input type="radio" class="form-check-input" name="a${nextQuestionNumber}">
+            <input type="text" class="form-control">
+          </div>
+  
+          <div class="answer">
+            <input type="radio" class="form-check-input" name="a${nextQuestionNumber}">
+            <input type="text" class="form-control">
+          </div>
+  
+          <div class="answer">
+            <input type="radio" class="form-check-input" name="a${nextQuestionNumber}">
+            <input type="text" class="form-control">
+          </div>
+  
+          <div class="answer">
+            <input type="radio" class="form-check-input" name="a${nextQuestionNumber}">
+            <input type="text" class="form-control">
+          </div>
+        </div>
+      </div>
+      `
+
+    const elQuestion = document.createElement("div")
+    elQuestion.classList.add("question")
+    elQuestion.innerHTML = htmlQuestion
+    blockNewQuestions.append(elQuestion)
+
+    nextQuestionNumber++
+  }
+
+  btnAddQuestion.addEventListener("click", addQuestionHandler)
+  /*
   btnAddQuestion.addEventListener("click", e => {
     e.preventDefault()
 
@@ -121,12 +168,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     nextQuestionNumber++
   })
+  */
 
   // Закрыть модальные окна
   modalTestClose.addEventListener("click", () => {
     modalTest.classList.remove("modal-show")
   })
   modalAddTestClose.addEventListener("click", () => {
+    // btnAddQuestion.removeEventListener("click", addQuestionHandler)
     modalAddTest.classList.remove("modal-show")
   })
 })

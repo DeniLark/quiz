@@ -30,7 +30,6 @@ library
       Database.Add
       Database.Del
       Database.Get
-      Lib
       Types.Types
       Types.TypesApiInput
       Types.TypesApiOutput

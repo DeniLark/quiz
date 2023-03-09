@@ -45,7 +45,6 @@ function submitTest(test) {
     .then((response) => response.json())
     .then((json) => {
       getTests()
-      alert("Тест опубликован.")
     });
 }
 
@@ -61,7 +60,186 @@ function deleteTest(idTest) {
     .then((json) => {
       if (json) {
         getTests()
-        alert("Тест удален")
+      }
+    });
+}
+
+
+const modalEditor = document.querySelector(".modal-edit-test")
+const modalTitle = modalEditor.querySelector(".modal-title")
+const questionsBlock = modalEditor.querySelector(".new-questions")
+const btnNewQuestion = modalEditor.querySelector("#btn-edit-question")
+
+function editorForTest(idTest) {
+  console.log("editorForTest")
+  fetch('http://localhost:8080/tests/' + idTest)
+    .then(res => res.json())
+    .then(json => {
+      questionsBlock.innerHTML = ""
+
+      btnNewQuestion.addEventListener("click", newQuestionHandler)
+      function newQuestionHandler() {
+        const newQuestion = document.createElement("div")
+        newQuestion.classList.add("question")
+        const questionHTML =
+          `
+          <h5 class="question-title">Вопрос ${++countQuestions}</h5>
+            <input type="text" class="question-text form-control">
+
+            <div class="answers">
+
+            <div class="answer">
+              <input type="radio" class="form-check-input" name="a${countQuestions}">
+              <input type="text" class="form-control">
+            </div>
+      
+            <div class="answer">
+              <input type="radio" class="form-check-input" name="a${countQuestions}">
+              <input type="text" class="form-control">
+            </div>
+      
+            <div class="answer">
+              <input type="radio" class="form-check-input" name="a${countQuestions}">
+              <input type="text" class="form-control">
+            </div>
+      
+            <div class="answer">
+              <input type="radio" class="form-check-input" name="a${countQuestions}">
+              <input type="text" class="form-control">
+            </div>
+          </div>
+          `
+        newQuestion.innerHTML = questionHTML
+        questionsBlock.append(newQuestion)
+      }
+
+      let countQuestions = json.questions.length
+
+      modalTitle.innerHTML = json.title
+
+      json.questions.forEach((q, i) => {
+        questionsBlock.append(createElEditorQuestion(q, i))
+      });
+
+      modalEditor.classList.add("modal-show")
+
+      const btnSubmitTest = modalEditor.querySelector("#submit-test")
+      modalEditor.querySelector("#test-title").value = ""
+
+      function submitHandler() {
+        const testTitle = modalEditor.querySelector("#test-title").value
+
+        // modalEditor.querySelector(".modal-title").innerHTML
+        const questionsNodes = modalEditor.querySelectorAll(".question")
+
+        let testObjEdit = {
+          title: testTitle,
+          questions: []
+        }
+
+        questionsNodes.forEach(q => {
+          const questionText = q.querySelector(".question-text").value
+          // console.log(q)
+          let questionObjEdit = {
+            textQuestion: questionText,
+            answers: []
+          }
+
+          const answerBlocks = q.querySelectorAll(".answers")
+          answerBlocks.forEach(aEl => {
+            const answers = aEl.querySelectorAll("div")
+            const as = answers.forEach(a => {
+              const isCorrectA = a.querySelector("[type=radio]").checked
+              const textA = a.querySelector("[type=text]").value
+              const answerObjEdit = {
+                isCorrect: isCorrectA,
+                textAnswer: textA
+              }
+
+              questionObjEdit.answers.push(answerObjEdit)
+            })
+          })
+
+          testObjEdit.questions.push(questionObjEdit)
+        })
+
+        editTest(idTest, testObjEdit)
+        closeEditModal()
+      }
+
+      function closeEditModal() {
+        modalEditor.classList.remove("modal-show")
+        btnNewQuestion.removeEventListener("click", newQuestionHandler)
+        btnSubmitTest.removeEventListener("click", submitHandler)
+      }
+
+      btnSubmitTest.addEventListener("click", submitHandler)
+
+      modalEditor.querySelector(".modal-btn_close")
+        .addEventListener("click", () => {
+          closeEditModal()
+        })
+    })
+}
+
+const initQuestion = {
+  textQuestion: "",
+  answers: []
+}
+function createElEditorQuestion(question = initQuestion, i = 1) {
+  let el = document.createElement("div")
+  el.classList.add("question")
+
+  const questionHTML =
+    `
+    <h5 class="question-title">Вопрос ${i + 1}</h5>
+      <input type="text" class="question-text form-control" 
+             value="${question.textQuestion}">
+
+      <div class="answers">${question.answers.reduce((acc, a) => {
+      return acc += createElEditorAnswer(a, i)
+    }, "")}</div>
+    </div>
+    `
+  el.innerHTML = questionHTML
+
+  return el
+}
+
+const initAnswer = {
+  answerId: 1,
+  isCorrect: false,
+  textAnswer: ""
+}
+function createElEditorAnswer(answer = initAnswer, i = 1) {
+  const answerHTML =
+    `
+    <div class="answer">
+      <input type="radio" 
+             class="form-check-input" 
+             name="a${i}"
+             ${answer.isCorrect ? "checked" : ""}>
+      <input type="text" 
+             value="${answer.textAnswer}" class="form-control">
+    </div>
+    `
+  return answerHTML
+}
+
+// Отредактировать тест
+function editTest(idTest, testObj) {
+  fetch('http://localhost:8080/tests/' + idTest, {
+    method: "PUT",
+    body: JSON.stringify(testObj),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json)
+      if (json) {
+        getTests()
       }
     });
 }

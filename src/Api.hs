@@ -22,6 +22,9 @@ type API = "tests" :> Get '[JSON] [Test]
       :<|> "tests" :> Capture "test_id" Integer :> Get '[JSON] TO.Test
       -- удалить тест
       :<|> "tests" :> Capture "test_id" Integer :> Delete '[JSON] Bool
+      -- редактирорвать тест
+      :<|> "tests" :> Capture "test_id" Integer :> ReqBody '[JSON] TI.Test  
+                   :> Put '[JSON] Bool
       -- проверка ответа
       :<|> "answer" :> Capture "answer_id" Integer :> Get '[JSON] Bool
 
@@ -32,7 +35,8 @@ server = liftIO getTests
     :<|> (\ti ->  liftIO (addTest ti) >> pure ti)
     :<|> (liftIO . getTest)
     :<|> (\i ->  liftIO (removeTestById i >> pure True))
-    
+    :<|> (\i ti -> liftIO (removeTestById i >> addTest ti) >> pure True)
+
     :<|> (liftIO . checkCorrectAnswer)
     
 
