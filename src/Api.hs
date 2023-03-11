@@ -22,7 +22,7 @@ type API = "tests" :> Get '[JSON] [Test]
       :<|> "tests" :> Capture "test_id" Integer :> Get '[JSON] TO.Test
       -- удалить тест
       :<|> "tests" :> Capture "test_id" Integer :> Delete '[JSON] Bool
-      -- редактирорвать тест
+      -- редактировать тест
       :<|> "tests" :> Capture "test_id" Integer :> ReqBody '[JSON] TI.Test  
                    :> Put '[JSON] Bool
       -- проверка ответа
@@ -34,9 +34,11 @@ server :: Server API
 server = liftIO getTests
     :<|> (\ti ->  liftIO (addTest ti) >> pure ti)
     :<|> (liftIO . getTest)
+    -- удалить тест
     :<|> (\i ->  liftIO (removeTestById i >> pure True))
+    -- редактировать тест
     :<|> (\i ti -> liftIO (removeTestById i >> addTest ti) >> pure True)
-
+    -- проверка ответа
     :<|> (liftIO . checkCorrectAnswer)
     
 
@@ -47,7 +49,6 @@ app = middleware $ serve (Proxy :: Proxy API) server
 middleware :: Middleware
 middleware = cors (const $ Just simpleCorsResourcePolicy 
    { corsRequestHeaders = ["Content-Type"]
-   , corsOrigins = Nothing -- Just (["http://127.0.0.1:5500/"], True)
    , corsMethods = ["GET", "POST", "PUT", "OPTIONS", "DELETE"]
    }) 
 
