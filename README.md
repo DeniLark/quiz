@@ -3,11 +3,11 @@
 
 ## Маршруты
 ```
-GET    http://localhost:8080/tests  - получить список тестов
-POST   http://localhost:8080/tests - опубликовать тест
-GET    http://localhost:8080/tests/1 - получить тест с id = 1
-DELETE http://localhost:8080/tests/1 - удалить тест с id = 1
-PUT    http://localhost:8080/tests/1 - редактировать тест с id = 1
+GET    http://localhost:8080/tests    - получить список тестов
+POST   http://localhost:8080/tests    - опубликовать тест
+GET    http://localhost:8080/tests/1  - получить тест с id = 1
+DELETE http://localhost:8080/tests/1  - удалить тест с id = 1
+PUT    http://localhost:8080/tests/1  - редактировать тест с id = 1
 GET    http://localhost:8080/answer/1 - проверить ответ с id = 1 на правильность
 ```
 
