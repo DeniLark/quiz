@@ -27,9 +27,9 @@ let testExample = {
       textQuestion: "2 + 2",
       answers:
         [{ isCorrect: false, textAnswer: "3" },
-        { isCorrect: true, textAnswer: "4" },
-        { isCorrect: false, textAnswer: "5" },
-        { isCorrect: false, textAnswer: "6" }]
+         { isCorrect: true,  textAnswer: "4" },
+         { isCorrect: false, textAnswer: "5" },
+         { isCorrect: false, textAnswer: "6" }]
     }
   ]
 }
